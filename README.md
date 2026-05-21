@@ -26,6 +26,7 @@ Libnotify.show(:body => "hello", :summary => "world", :timeout => 2.5)
 require 'libnotify'
 
 n = Libnotify.new do |notify|
+  notify.app_name   = "My App"
   notify.summary    = "hello"
   notify.body       = "world"
   notify.timeout    = 1.5         # 1.5 (s), 1000 (ms), "2", nil, false
