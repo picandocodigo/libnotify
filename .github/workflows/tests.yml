@@ -1,0 +1,23 @@
+name: tests
+on:
+  push:
+    branches: "**"
+  pull_request:
+    branches: "**"
+jobs:
+  test-main:
+    strategy:
+      matrix:
+        ruby: ['3.3', '3.4', '4.0', 'jruby-9.3', 'jruby-9.4', 'jruby-10.0', 'truffleruby']
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        persist-credentials: false
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - name: Install libnotify4
+      run: sudo apt-get install libnotify4
+    - name: Run tests
+      run: bundle install && bundle exec rake test
